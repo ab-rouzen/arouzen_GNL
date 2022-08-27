@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arouzen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/03 12:21:55 by arouzen           #+#    #+#             */
-/*   Updated: 2021/12/11 13:29:41 by arouzen          ###   ########.fr       */
+/*   Created: 2021/12/11 13:28:25 by arouzen           #+#    #+#             */
+/*   Updated: 2021/12/11 13:28:34 by arouzen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	loc_nl(char *str, int param, int c_eof)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arouzen <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/03 12:32:13 by arouzen           #+#    #+#             */
-/*   Updated: 2021/12/11 13:29:50 by arouzen          ###   ########.fr       */
+/*   Created: 2021/12/11 13:28:50 by arouzen           #+#    #+#             */
+/*   Updated: 2021/12/11 13:29:01 by arouzen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	destroy(char *temp, int param)
 {
