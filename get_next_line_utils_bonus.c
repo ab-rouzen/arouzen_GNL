@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arouzen <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: arouzen <arouzen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 13:28:50 by arouzen           #+#    #+#             */
-/*   Updated: 2021/12/11 13:29:01 by arouzen          ###   ########.fr       */
+/*   Updated: 2022/12/05 23:17:35 by arouzen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,33 +26,47 @@ void	destroy(char *temp, int param)
 	temp[i] = 0x00;
 }
 
-size_t	ft_strlen(const char *str)
+int	loc_nl(char *str, int param, int c_eof)
 {
-	int		i;
-	char	*nstr;
+	int	loc;
 
-	nstr = (char *)str;
-	if (!nstr)
-		return (0);
-	i = 0;
-	while (nstr[i] != '\0')
-		i++;
-	return (i);
+	loc = 0;
+	while (str[loc] == 0x00 && loc < c_eof)
+		loc++;
+	if (param == 1)
+		return (loc);
+	while (str[loc] != '\n' && loc[str] && loc < c_eof)
+		loc++;
+	if (str[loc] == '\n')
+		return (loc + 1);
+	return (loc);
 }
 
-char	*ft_strcpy(char *dst, const char *src)
+char	*arm_line(int fd, char **holder, char *buffer)
 {
-	unsigned int	i;
+	int		size_read;
+	int		i;
 
-	i = 0;
-	if (src)
+	size_read = loc_nl(holder[fd], 0, BUFFER_SIZE);
+	while (1)
 	{
-		while (src[i])
+		i = loc_nl(holder[fd], 1, size_read);
+		if (i == size_read)
 		{
-			dst[i] = src [i];
-			i++;
+			i = 0;
+			size_read = (read(fd, holder[fd], BUFFER_SIZE));
+			if (!size_read || size_read == -1)
+			{
+				free(holder[fd]);
+				holder[fd] = NULL;
+				return (buffer);
+			}
 		}
+		if (!allo_mem(&buffer, holder[fd], size_read))
+			return (NULL);
+		else if (copycat(holder[fd], buffer, size_read, &i) == COMPLETE)
+			return (buffer);
+		destroy(holder[fd], 1);
 	}
-	dst[i] = '\0';
-	return (dst);
+	return (0);
 }

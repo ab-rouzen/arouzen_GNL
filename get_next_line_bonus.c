@@ -3,44 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arouzen <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: arouzen <arouzen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 13:28:25 by arouzen           #+#    #+#             */
-/*   Updated: 2021/12/11 13:28:34 by arouzen          ###   ########.fr       */
+/*   Updated: 2022/12/05 23:17:31 by arouzen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-int	loc_nl(char *str, int param, int c_eof)
+static size_t	ft_strlen(const char *str)
 {
-	int	loc;
+	int		i;
+	char	*nstr;
 
-	loc = 0;
-	while (str[loc] == 0x00 && loc < c_eof)
-		loc++;
-	if (param == 1)
-		return (loc);
-	while (str[loc] != '\n' && loc[str] && loc < c_eof)
-		loc++;
-	if (str[loc] == '\n')
-		return (loc + 1);
-	return (loc);
+	nstr = (char *)str;
+	if (!nstr)
+		return (0);
+	i = 0;
+	while (nstr[i] != '\0')
+		i++;
+	return (i);
 }
 
-char	*allo_mem(char **buffer, char *temp, int c_eof)
+static char	*ft_strcpy(char *dst, const char *src)
 {
-	int		blk_size;
-	char	*buff2;
+	unsigned int	i;
 
-	blk_size = loc_nl(temp, 0, c_eof) - loc_nl(temp, 1, c_eof);
-	buff2 = malloc(ft_strlen(*buffer) + blk_size + 2);
-	if (!buff2)
-		return (NULL);
-	ft_strcpy(buff2, *buffer);
-	free (*buffer);
-	*buffer = buff2;
-	return ("ok:)");
+	i = 0;
+	if (src)
+	{
+		while (src[i])
+		{
+			dst[i] = src [i];
+			i++;
+		}
+	}
+	dst[i] = '\0';
+	return (dst);
 }
 
 int	copycat(char *temp, char *buffer, int c_eof, int *temp_pos)
@@ -66,33 +66,19 @@ int	copycat(char *temp, char *buffer, int c_eof, int *temp_pos)
 	return (INCOMPLETE);
 }
 
-char	*arm_line(int fd, char **holder, char *buffer)
+char	*allo_mem(char **buffer, char *temp, int c_eof)
 {
-	int		size_read;
-	int		i;
+	int		blk_size;
+	char	*buff2;
 
-	size_read = loc_nl(holder[fd], 0, BUFFER_SIZE);
-	while (1)
-	{
-		i = loc_nl(holder[fd], 1, size_read);
-		if (i == size_read)
-		{
-			i = 0;
-			size_read = (read(fd, holder[fd], BUFFER_SIZE));
-			if (!size_read || size_read == -1)
-			{
-				free(holder[fd]);
-				holder[fd] = NULL;
-				return (buffer);
-			}
-		}
-		if (!allo_mem(&buffer, holder[fd], size_read))
-			return (NULL);
-		else if (copycat(holder[fd], buffer, size_read, &i) == COMPLETE)
-			return (buffer);
-		destroy(holder[fd], 1);
-	}
-	return (0);
+	blk_size = loc_nl(temp, 0, c_eof) - loc_nl(temp, 1, c_eof);
+	buff2 = malloc(ft_strlen(*buffer) + blk_size + 2);
+	if (!buff2)
+		return (NULL);
+	ft_strcpy(buff2, *buffer);
+	free (*buffer);
+	*buffer = buff2;
+	return ("ok:)");
 }
 
 char	*get_next_line(int fd)

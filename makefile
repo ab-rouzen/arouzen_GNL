@@ -6,7 +6,7 @@
 #    By: arouzen <arouzen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 15:37:25 by arouzen           #+#    #+#              #
-#    Updated: 2022/12/05 15:42:28 by arouzen          ###   ########.fr        #
+#    Updated: 2022/12/05 23:22:39 by arouzen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ $(NAME) : $(MAND_OBJS) $(INCL)
 	@echo Checking files...
 	$(AR) $(ARFLAGS) $(LIB) $(MAND_OBJS)
 
-bonus : all $(BONU_OBJS) $(INCL_B)
+bonus : $(BONU_OBJS) $(INCL_B)
 	@echo Compiling bonus + mandatory objects...
 	$(AR) $(ARFLAGS) $(LIB) $(BONU_OBJS)
 
